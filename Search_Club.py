@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import json
             
-def Search_Club(keyword='',start_index=0) : # 공모전 검색 함수
+def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
         
     baseUrl = 'https://www.campuspick.com/club?keyword=' # 캠퍼스픽 링크
     plusUrl = quote_plus(keyword) # 검색어 링크
