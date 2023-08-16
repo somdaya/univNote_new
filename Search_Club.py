@@ -1,12 +1,12 @@
-# 검색_동아리_이미지다운제거
+# 검색_동아리
 
 from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
 from selenium import webdriver
-import json
             
+# 한번에 10개씩 가져오고, 다음 10개 가져올려면 start_index=10, 그 다음 10개 가져올려면 start_index=20 ---
 def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
-        
+      
     baseUrl = 'https://www.campuspick.com/club?keyword=' # 캠퍼스픽 링크
     plusUrl = quote_plus(keyword) # 검색어 링크
     url = baseUrl + plusUrl # 전체 링크
@@ -20,13 +20,13 @@ def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
     club_list = soup.select('a.item') # 검색결과가 제목, 링크 담고있는 요소 선택
     
+    result_list = [] # 크롤링 결과 담을 리스트
+    
     # 시작 인덱스가 리스트 범위를 벗어나면 함수 종료
     if start_index >= len(club_list) :
         driver.close()
-        return
+        return result_list
     
-    result_list = [] # 크롤링 결과 담을 리스트
-
     for club in club_list[start_index : start_index+10] : # 10개씩 가져오기
         title = club.select_one('p.profile').text # 제목 
         dday_element = club.select_one('p.info span.dday') # 디데이
@@ -44,13 +44,7 @@ def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
         }
         
         result_list.append(club_info)
-        
-    json_result = json.dumps(result_list, ensure_ascii=False, indent=2) # json형태로 변환
-    print(json_result) 
        
     driver.close() # 드라이버 닫기
-
-if __name__ == "__main__" :
-    keyword = input("원하는 동아리를 검색해보세요: ")
-    Search_Club(keyword=keyword) # 처음 10개 가져오는 함수
-    Search_Club(keyword=keyword, start_index=10) # 11~20개 가져오는 함수
+    
+    return result_list
