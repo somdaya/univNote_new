@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
             
 # 한번에 10개씩 가져오고, 다음 10개 가져올려면 start_index=10, 그 다음 10개 가져올려면 start_index=20 ---
-def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
+def search_club(keyword='',start_index=0) : # 동아리 검색 함수
       
     baseUrl = 'https://www.campuspick.com/club?keyword=' # 캠퍼스픽 링크
     plusUrl = quote_plus(keyword) # 검색어 링크
@@ -18,32 +18,32 @@ def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
 
     html = driver.page_source # 웹페이지의 소스코드 가져오기
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
-    club_list = soup.select('a.item') # 검색결과가 제목, 링크 담고있는 요소 선택
+    search_club_list = soup.select('a.item') # 검색결과가 제목, 링크 담고있는 요소 선택
     
     result_list = [] # 크롤링 결과 담을 리스트
     
     # 시작 인덱스가 리스트 범위를 벗어나면 함수 종료
-    if start_index >= len(club_list) :
+    if start_index >= len(search_club_list) :
         driver.close()
         return result_list
     
-    for club in club_list[start_index : start_index+10] : # 10개씩 가져오기
-        title = club.select_one('p.profile').text # 제목 
-        dday_element = club.select_one('p.info span.dday') # 디데이
+    for search_club in search_club_list[start_index : start_index+10] : # 10개씩 가져오기
+        title = search_club.select_one('p.profile').text # 제목 
+        dday_element = search_club.select_one('p.info span.dday') # 디데이
         dday = dday_element.text.strip() if dday_element else 'No D-day' # 디데이
         if dday == '마감' : # 마감이면 안가져오기
             continue
-        link = 'https://www.campuspick.com' + club['href'] # 링크
-        image_url = club.select_one('figure')['data-image'] # 이미지 url 가져오기
+        link = 'https://www.campuspick.com' + search_club['href'] # 링크
+        image_url = search_club.select_one('figure')['data-image'] # 이미지 url 가져오기
         
-        club_info = {
+        search_club_info = {
             'title' : title,
             'dday' : dday,
             'link' : link,
             'image_url' : image_url,
         }
         
-        result_list.append(club_info)
+        result_list.append(search_club_info)
        
     driver.close() # 드라이버 닫기
     
