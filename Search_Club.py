@@ -3,12 +3,10 @@
 from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
 from selenium import webdriver
-import requests
             
 # 한번에 10개씩 가져오고, 다음 10개 가져올려면 start_index=10, 그 다음 10개 가져올려면 start_index=20 ---
-def Search_Club(start_index=0) : # 동아리 검색 함수
-    
-    keyword = requests.args.get('keyword')    
+def Search_Club(keyword='',start_index=0) : # 동아리 검색 함수
+      
     baseUrl = 'https://www.campuspick.com/club?keyword=' # 캠퍼스픽 링크
     plusUrl = quote_plus(keyword) # 검색어 링크
     url = baseUrl + plusUrl # 전체 링크
@@ -23,11 +21,6 @@ def Search_Club(start_index=0) : # 동아리 검색 함수
     club_list = soup.select('a.item') # 검색결과가 제목, 링크 담고있는 요소 선택
     
     result_list = [] # 크롤링 결과 담을 리스트
-    
-    # 결과 없으면 종료 (빈 리스트 반환)
-    if len(result_list) == 0 :
-        driver.close()
-        return result_list
     
     # 시작 인덱스가 리스트 범위를 벗어나면 함수 종료
     if start_index >= len(club_list) :
@@ -54,4 +47,4 @@ def Search_Club(start_index=0) : # 동아리 검색 함수
        
     driver.close() # 드라이버 닫기
     
-    return club_info
+    return result_list
