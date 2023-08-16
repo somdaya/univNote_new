@@ -1,12 +1,14 @@
-# 검색_대외활동_이미지다운제거
+# 검색_대외활동
 
 from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
 from selenium import webdriver
-import json
+import requests
 
-def Search_Activity(keyword='',start_index=0) : # 대외활동 검색 함수
-        
+# 한번에 10개씩 가져오고, 다음 10개 가져올려면 start_index=10, 그 다음 10개 가져올려면 start_index=20 ---
+def Search_Activity(start_index=0) : # 대외활동 검색 함수
+    
+    keyword = requests.args.get('keword') # keyword값을 파라미터로 입력받음
     baseUrl = 'https://www.campuspick.com/activity?keyword=' # 캠퍼스픽 링크
     plusUrl = quote_plus(keyword) # 검색어 링크
     url = baseUrl + plusUrl # 전체 링크
@@ -20,12 +22,18 @@ def Search_Activity(keyword='',start_index=0) : # 대외활동 검색 함수
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
     activity_list = soup.select('a.top') # 검색결과가 제목, 링크 담고있는 요소 선택
     
+    result_list = [] # 크롤링 결과 담을 리스트
+    
+    # 크롤링 결과 없으면 종료(빈 리스트 반환)
+    if len(result_list) == 0 :
+        driver.close()
+        return result_list
+    
     # 시작 인덱스가 리스트 범위를 벗어나면 함수 종료
     if start_index >= len(activity_list) :
         driver.close()
-        return
-    result_list = [] # 크롤링 결과 담을 리스트
-
+        return result_list
+    
     for activity in activity_list[start_index : start_index+10] : # 10개씩 가져오기
         title = activity.select_one('h2').text # 제목 
         company = activity.select_one('p.company').text # 주최기관
@@ -43,16 +51,7 @@ def Search_Activity(keyword='',start_index=0) : # 대외활동 검색 함수
             'link' : link,
             'image_url' : image_url,
         }
-        
         result_list.append(activity_info)
-
-    json_result = json.dumps(result_list, ensure_ascii=False, indent=2) # json형태로 변환
-
-    print(json_result) 
-       
+        
     driver.close() # 드라이버 닫기
-
-if __name__ == "__main__" :
-    keyword = input("원하는 대외활동을 검색해보세요: ")
-    Search_Activity(keyword=keyword) # 처음 10개 가져오는 함수
-    Search_Activity(keyword=keyword, start_index=10) # 11~20개 가져오는 함수
+    return activity_info # 함수값 반환
