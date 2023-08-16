@@ -1,7 +1,28 @@
-from flask import Flask
+from flask import Flask, request
+from Search_Activity import Search_Activity
+from Search_Club import Search_Club
+
+from Search_Contest import Search_Contest
 
 app = Flask(__name__)
 
-@app.route("/hello", methods=['GET'])
-def hello():
-  return "hello world"
+@app.route("/search/contest/<keyword>", methods=['GET'])
+def search_contest(keyword):
+    idx = request.args.get('idx', default=0, type=int)
+    data = Search_Contest(keyword=keyword, start_index=idx)
+    return data;
+  
+@app.route("/search/activity/<keyword>", methods=['GET'])
+def search_activity(keyword):
+  idx = request.args.get('idx', default=0, type=int)
+  data = Search_Activity(keyword=keyword, start_index=idx)
+  return data;
+
+@app.route("/search/club/<keyword>", methods=['GET'])
+def search_club(keyword):
+    idx = request.args.get('idx', default=0, type=int)
+    data = Search_Club(keyword=keyword, start_index=idx)
+    return data;
+
+if __name__ == "__main__":
+    app.run()
