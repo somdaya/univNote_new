@@ -1,4 +1,7 @@
 from flask import Flask, request
+from Like_Activity import like_activity
+from Like_Club import like_club
+from Like_Contest import like_contest
 from Plus_Activity import plus_activity
 from Plus_Club import plus_club
 from Plus_Contest import plus_contest
@@ -43,6 +46,21 @@ def show_all_activity():
 def show_all_club():
     idx = request.args.get('idx', default=0, type=int)
     data = plus_club(start_index=idx)
+    return data;
+
+@app.route("/contest/best", methods=['GET'])
+def best_contest():
+    data = like_contest()
+    return data;
+
+@app.route("/activity/best", methods=['GET'])
+def best_activity():
+    data = like_activity()
+    return data;
+
+@app.route("/club/best", methods=['GET'])
+def best_club():
+    data = like_club()
     return data;
 
 if __name__ == "__main__":
