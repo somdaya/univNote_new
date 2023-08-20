@@ -10,10 +10,11 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
 import re
+import random
 
 # 머신러닝 모델 학습, return model
 def title_class_traindata():
-    df = pd.read_csv('campuspick.csv', encoding='utf-8', dtype={'title':str, 'f':int}, header=0)
+    df = pd.read_csv('C:/Users/이다솜/Desktop/sw/univNote_new/campuspick.csv', encoding='utf-8', dtype={'title':str, 'f':int}, header=0)
     titles = df.iloc[:, 0].tolist()
     fields = df.iloc[:, 1].tolist()
     
@@ -32,7 +33,7 @@ def title_class_traindata():
     random_search.fit(titles_train_vec, fields_train)
 
     best_alpha = random_search.best_params_['alpha']
-    print("Best alpha value:", best_alpha)
+    # print("Best alpha value:", best_alpha)
 
     model.set_params(alpha=best_alpha)
     model.fit(titles_train_vec, fields_train)
@@ -290,8 +291,11 @@ def get_matching_activities(activity_contest_results, your_major):
     for i, item in enumerate(activity_contest_results):
         if title_field_index[i] == 0 or title_field_index[i] == your_major:
             matching_activities.append(item)
+    
+    random_matching_activities = random.sample(matching_activities, 5)
+    print(random_matching_activities)
             
-    return matching_activities
+    return random_matching_activities
                 
 
 # main함수
@@ -299,7 +303,7 @@ vectorizer, model = title_class_traindata()
 activity_contest_results = activity_contest_result()
 your_major = input("당신의 전공을 입력하세요: ")
 your_major = close_major(your_major)
-matching_activities = get_matching_activities(activity_contest_results, your_major)
+random_matching_activities = get_matching_activities(activity_contest_results, your_major)
     
 # 분야 인덱스
 # 1. 인문  2. 사회과학  3. 경영  4. 공학  5. 자연과학  6. 건축  7. 예술  8. 전체
