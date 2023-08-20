@@ -1,4 +1,4 @@
-from flask import Flask, request
+from fastapi import FastAPI
 from Like_Activity import like_activity
 from Like_Club import like_club
 from Like_Contest import like_contest
@@ -10,55 +10,49 @@ from Search_Activity import search_activity
 from Search_Club import search_club
 from Search_Contest import search_contest
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route("/contest/search/<keyword>", methods=['GET'])
-def search_contents(keyword):
-    idx = request.args.get('idx', default=0, type=int)
+@app.get("/contest/search/{keyword}")
+def search_contents(keyword: str, idx: int = 0):
     data = search_contest(keyword=keyword, start_index=idx)
     return data;
   
-@app.route("/activity/search/<keyword>", methods=['GET'])
-def search_activities(keyword):
-  idx = request.args.get('idx', default=0, type=int)
+@app.get("/activity/search/{keyword}")
+def search_activities(keyword: str, idx: int = 0):
   data = search_activity(keyword=keyword, start_index=idx)
   return data;
 
-@app.route("/club/search/<keyword>", methods=['GET'])
-def search_clubs(keyword):
-    idx = request.args.get('idx', default=0, type=int)
+@app.get("/club/search/{keyword}")
+def search_clubs(keyword: str, idx: int = 0):
     data = search_club(keyword=keyword, start_index=idx)
     return data;
 
-@app.route("/contest", methods=['GET'])
-def show_all_contest():
-    idx = request.args.get('idx', default=0, type=int)
+@app.get("/contest")
+def show_all_contest(idx: int = 0):
     data = plus_contest(start_index=idx)
     return data;
 
-@app.route("/activity", methods=['GET'])
-def show_all_activity():
-    idx = request.args.get('idx', default=0, type=int)
+@app.get("/activity")
+def show_all_activity(idx: int = 0):
     data = plus_activity(start_index=idx)
     return data;
 
-@app.route("/club", methods=['GET'])
-def show_all_club():
-    idx = request.args.get('idx', default=0, type=int)
+@app.get("/club")
+def show_all_club(idx: int = 0):
     data = plus_club(start_index=idx)
     return data;
 
-@app.route("/contest/best", methods=['GET'])
+@app.get("/contest/best")
 def best_contest():
     data = like_contest()
     return data;
 
-@app.route("/activity/best", methods=['GET'])
+@app.get("/activity/best")
 def best_activity():
     data = like_activity()
     return data;
 
-@app.route("/club/best", methods=['GET'])
+@app.get("/club/best")
 def best_club():
     data = like_club()
     return data;
