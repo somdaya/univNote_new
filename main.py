@@ -9,6 +9,7 @@ from Plus_Contest import plus_contest
 from Search_Activity import search_activity
 from Search_Club import search_club
 from Search_Contest import search_contest
+from field_class import activity_contest_result, close_major, get_matching_activities
 from review import review
 
 app = FastAPI()
@@ -62,6 +63,13 @@ def best_club():
 def show_reviews(keyword: str):
     data = review(keyword)
     return data;
+
+@app.get("/recommend")
+def show_matching_activities(major: str):
+    activity_contest_results = activity_contest_result()
+    random_matching_activities = get_matching_activities(activity_contest_results, close_major(major))
+    
+    return random_matching_activities
 
 if __name__ == "__main__":
     app.run()
