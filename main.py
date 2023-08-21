@@ -1,16 +1,16 @@
 from fastapi import FastAPI
-from Like_Activity import like_activity
-from Like_Club import like_club
-from Like_Contest import like_contest
-from Plus_Activity import plus_activity
-from Plus_Club import plus_club
-from Plus_Contest import plus_contest
+from best.best_activity import best_activity
+from best.best_club import best_club
+from best.best_contest import best_contest
+from filed_class import activity_contest_result, close_major, get_matching_activities
+from plus.plus_activity import plus_activity
+from plus.plus_club import plus_club
+from plus.plus_contest import plus_contest
 
-from Search_Activity import search_activity
-from Search_Club import search_club
-from Search_Contest import search_contest
-from field_class import activity_contest_result, close_major, get_matching_activities
 from review import review
+from search.search_activity import search_activity
+from search.search_club import search_club
+from search.search_contest import search_contest
 
 app = FastAPI()
 
@@ -45,18 +45,18 @@ def show_all_club(idx: int = 0):
     return data;
 
 @app.get("/contest/best")
-def best_contest():
-    data = like_contest()
+def show_best_contest():
+    data = best_contest()
     return data;
 
 @app.get("/activity/best")
-def best_activity():
-    data = like_activity()
+def show_best_activity():
+    data = best_activity()
     return data;
 
 @app.get("/club/best")
-def best_club():
-    data = like_club()
+def show_best_club():
+    data = best_club()
     return data;
 
 @app.get("/reviews/{keyword}")
