@@ -24,11 +24,11 @@ def plus_club(start_index=0) : # 더보기_연합동아리
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
     plus_club_list = soup.select('a.item') # 정보 있는 요소 가져오기
     
-    if start_index >= len(plus_club_list) : # 10개씩 가져오기
+    if start_index >= len(plus_club_list) : # 20개씩 가져오기
         driver.close()
         return result_list
 
-    for plus_club in plus_club_list[start_index : start_index+10] :
+    for plus_club in plus_club_list[start_index : start_index+20] :
         
         title_element = plus_club.select_one('h2') # 제목
         if title_element : # 제목 있으면
