@@ -3,7 +3,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
-def best_contest() : # 공모전 인기공고
+def best_activity() : # 공모전 인기공고
     url = "https://www.campuspick.com/contest"
     driver = webdriver.Chrome() # 드라이버 시작, 시스템 환경변수에 경로 설정해서 경로 따로 지정 안함
     driver.get(url) # 캠퍼스픽 사이트 가져오기

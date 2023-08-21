@@ -301,10 +301,10 @@ def get_matching_activities(activity_contest_results, your_major):
 
 
 # main함수
-activity_contest_results = activity_contest_result()
-your_major = input("당신의 전공을 입력하세요: ")
-your_major = close_major(your_major)
-random_matching_activities = get_matching_activities(activity_contest_results, your_major)
+# activity_contest_results = activity_contest_result()
+# your_major = input("당신의 전공을 입력하세요: ")
+# your_major = close_major(your_major)
+# random_matching_activities = get_matching_activities(activity_contest_results, your_major)
     
 # 분야 인덱스
 # 1. 인문  2. 사회과학  3. 경영  4. 공학  5. 자연과학  6. 건축  7. 예술  8. 전체
