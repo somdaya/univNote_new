@@ -24,11 +24,11 @@ def plus_activity(start_index=0) : # 더보기_대외활동
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
     plus_activity_list = soup.select('a.top') # 정보 있는 요소 가져오기
     
-    if start_index >= len(plus_activity_list) : # 10개씩 가져오기
+    if start_index >= len(plus_activity_list) : # 20개씩 가져오기
         driver.close()
         return result_list
 
-    for plus_activity in plus_activity_list[start_index : start_index+10] :
+    for plus_activity in plus_activity_list[start_index : start_index+20] :
         
         title = plus_activity.select_one('h2').text # 제목
         dday_element = plus_activity.select_one('p.info span.dday') # 디데이
