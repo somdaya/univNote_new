@@ -24,11 +24,11 @@ def plus_club(start_index=0) : # 더보기_연합동아리
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
     plus_club_list = soup.select('a.item') # 정보 있는 요소 가져오기
     
-    if start_index >= len(plus_club_list) : # 10개씩 가져오기
+    if start_index >= len(plus_club_list) : # 20개씩 가져오기
         driver.close()
         return result_list
 
-    for plus_club in plus_club_list[start_index : start_index+10] :
+    for plus_club in plus_club_list[start_index : start_index+20] :
         
         title_element = plus_club.select_one('h2') # 제목
         if title_element : # 제목 있으면
@@ -41,15 +41,17 @@ def plus_club(start_index=0) : # 더보기_연합동아리
             continue
         link = 'https://www.campuspick.com' + plus_club['href']  # 링크
         image_url = plus_club.select_one('figure')['data-image'] # 이미지
+        name = plus_club.select_one('p.profile').text
         
         plus_club_info = {
+            'name' : name,
             'title' : title,
             'dday' : dday,
             'link' : link,
             'image_url' : image_url,
         }
         result_list.append(plus_club_info)
-        start_index += 10
+
     driver.close() # 드라이버 닫기 
     
     return result_list

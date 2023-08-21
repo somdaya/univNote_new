@@ -3,12 +3,33 @@
 from selenium import webdriver
 from urllib.parse import quote_plus
 from bs4 import BeautifulSoup
+import re
 
-def review() : # 후기글 크롤링
+# 특수문자 제거
+def remove_special_characters(text):
+    clean_text = re.sub(r'[^\w\s]', '', text)
+    return clean_text
+
+# 특정단어 제거
+def remove_words_numbers(text):
+    words_to_remove = ['모집', '참가', '합니다', '2023년', '공고', '공지']
     
-    keyword = input("후기를 검색할 활동을 입력하세요: ")
+    patterns_to_remove = ['제\d기', '제\d회', '\d기']
+
+    for word in words_to_remove:
+        text = text.replace(word, "")
+    for pattern in patterns_to_remove:
+        text = re.sub(pattern, '', text)
+    text = re.sub(r'\d+', '', text)
+
+    return text
+
+def review(keyword='') : # 후기글 크롤링
     
-    review_keyword = f'"{keyword} 후기"' # 검색결과에 특정 검색어가 무조건 포함되게
+    clean_txt_1 = remove_special_characters(keyword)
+    clean_txt_2 = remove_words_numbers(clean_txt_1).strip()
+    
+    review_keyword = f'"{clean_txt_2} 후기"'
 
     baseUrl = 'https://www.google.com/search?q=' # 구글 링크
     plusUrl = quote_plus(review_keyword) # 검색어 링크
@@ -45,7 +66,11 @@ def review() : # 후기글 크롤링
                 text = text_element.get_text(strip=True) if text_element else None # 줄거리
                 date = date_element.get_text(strip=True) if date_element else None # 작성날짜
                 link = link_element # 링크
-            
+                
+                if date:
+                    text = text.replace(date, '')  # date를 text에서 제거
+                    text = text.replace('—', '')
+                    
                 review_info = {
                     'title' : title,
                     'text' : text,
@@ -54,6 +79,5 @@ def review() : # 후기글 크롤링
                 }
                 result_list.append(review_info)
         driver.quit()
-        
         return result_list
     

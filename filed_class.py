@@ -160,11 +160,11 @@ def close_major(your_major) :
   if close_majors:
       closest_major = close_majors[0]
       user_field_index = field_list.get(closest_major, -1)  # -1은 분야를 찾지 못한 경우를 나타냄
-      print(f"가장 유사한 학과: {closest_major}")
-      print(f"해당 학과의 분야 번호: {user_field_index}")
+    #   print(f"가장 유사한 학과: {closest_major}")
+    #   print(f"해당 학과의 분야 번호: {user_field_index}")
   else:
       user_field_index = 0
-      print("유사한 학과를 찾을 수 없습니다.")
+    #   print("유사한 학과를 찾을 수 없습니다.")
   
   return user_field_index
 
@@ -286,6 +286,7 @@ def title_class_predict(vectorizer, model, activity_contest_results) :
 # 사용자의 분야와 활동 제목의 분야가 같은 활동만 가져오기
 def get_matching_activities(activity_contest_results, your_major):
     matching_activities = []
+    vectorizer, model = title_class_traindata()
     title_field_index = title_class_predict(vectorizer, model, activity_contest_results) 
     
     for i, item in enumerate(activity_contest_results):
@@ -293,13 +294,13 @@ def get_matching_activities(activity_contest_results, your_major):
             matching_activities.append(item)
     
     random_matching_activities = random.sample(matching_activities, 5)
-    print(random_matching_activities)
+    # for j in random_matching_activities : 
+    #     print(j)
             
     return random_matching_activities
-                
+
 
 # main함수
-vectorizer, model = title_class_traindata()
 activity_contest_results = activity_contest_result()
 your_major = input("당신의 전공을 입력하세요: ")
 your_major = close_major(your_major)

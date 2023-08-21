@@ -24,11 +24,11 @@ def plus_contest(start_index=0) : # 공모전 전체
     soup = BeautifulSoup(html, 'html.parser') # 파싱하기
     plus_contest_list = soup.select('a.top') # 정보 있는 요소 가져오기
     
-    if start_index >= len(plus_contest_list) : # 10개씩 가져오기
+    if start_index >= len(plus_contest_list) : # 20개씩 가져오기
         driver.close()
         return
 
-    for plus_contest in plus_contest_list[start_index : start_index+10] :
+    for plus_contest in plus_contest_list[start_index : start_index+20] :
         
         title = plus_contest.select_one('h2').text # 제목
         dday_element = plus_contest.select_one('p.info span.dday') # 디데이
@@ -46,7 +46,7 @@ def plus_contest(start_index=0) : # 공모전 전체
             'image_url' : image_url,
         }
         result_list.append(plus_contest_info)
-        start_index += 10
+
     driver.close() # 드라이버 닫기
     
     return result_list

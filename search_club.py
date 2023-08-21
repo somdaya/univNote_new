@@ -35,8 +35,10 @@ def search_club(keyword='',start_index=0) : # 동아리 검색 함수
             continue
         link = 'https://www.campuspick.com' + search_club['href'] # 링크
         image_url = search_club.select_one('figure')['data-image'] # 이미지 url 가져오기
+        name = search_club.select_one('p.profile').text # 동아리 이름
         
         search_club_info = {
+            'name' : name,
             'title' : title,
             'dday' : dday,
             'link' : link,
