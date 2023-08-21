@@ -9,6 +9,7 @@ from Plus_Contest import plus_contest
 from Search_Activity import search_activity
 from Search_Club import search_club
 from Search_Contest import search_contest
+from review import review
 
 app = FastAPI()
 
@@ -55,6 +56,11 @@ def best_activity():
 @app.get("/club/best")
 def best_club():
     data = like_club()
+    return data;
+
+@app.get("/reviews/{keyword}")
+def show_reviews(keyword: str):
+    data = review(keyword)
     return data;
 
 if __name__ == "__main__":
