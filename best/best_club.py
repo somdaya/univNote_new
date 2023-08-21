@@ -3,7 +3,7 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
-def like_club() : # 연합동아리 인기공고
+def best_club() : # 연합동아리 인기공고
     
     url = "https://www.campuspick.com/club"
     driver = webdriver.Chrome() # 드라이버 시작, 시스템 환경변수에 경로 설정해서 경로 따로 지정 안함
