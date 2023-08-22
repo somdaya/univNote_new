@@ -14,7 +14,7 @@ import random
 
 # 머신러닝 모델 학습, return model
 def title_class_traindata():
-    df = pd.read_csv('C:/Users/이다솜/Desktop/sw/univNote_new/campuspick.csv', encoding='utf-8', dtype={'title':str, 'f':int}, header=0)
+    df = pd.read_csv('~/univNote_new/campuspick.csv', encoding='utf-8', dtype={'title':str, 'f':int}, header=0)
     titles = df.iloc[:, 0].tolist()
     fields = df.iloc[:, 1].tolist()
     
