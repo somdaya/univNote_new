@@ -6,8 +6,15 @@ import time
 
 def plus_club(start_index=0) : # 더보기_연합동아리 
     
-    url = "https://www.campuspick.com/club" # 캠퍼스픽 url
-    driver = webdriver.Chrome() # 드라이버 시작, 시스템 환경변수에 경로 설정해서 경로 따로 지정 안함
+    url = "https://www.campuspick.com/club" # 캠퍼스픽 ur
+    l
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('headless')
+    chrome_options.add_argument("disable-gpu")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
+
+    driver = webdriver.Chrome(options=chrome_options) # 드라이버 시작
+    
     driver.get(url) # 캠퍼스픽 사이트 가져오기
     driver.implicitly_wait(10) # 웹 페이지가 로딩될 떄까지 최대 10초 대기
     
