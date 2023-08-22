@@ -210,6 +210,7 @@ def open_activity(start_index=0) :
         image_url = open_activity.select_one('figure')['data-image'] # 이미지
     
         open_activity_info = {
+            'type': '대외활동',
             'title' : title,
             'dday' : dday,
             'link' : link,
@@ -262,6 +263,7 @@ def open_contest(start_index=0) :
         image_url = open_contest.select_one('figure')['data-image'] # 이미지
     
         open_contest_info = {
+            'type': '공모전',
             'title' : title,
             'dday' : dday,
             'link' : link,
