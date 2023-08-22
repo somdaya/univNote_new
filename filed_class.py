@@ -14,7 +14,7 @@ import random
 
 # 머신러닝 모델 학습, return model
 def title_class_traindata():
-    df = pd.read_csv('C:/Users/이다솜/Desktop/sw/univNote_new/campuspick.csv', encoding='utf-8', dtype={'title':str, 'f':int}, header=0)
+    df = pd.read_csv('~/univNote_new/campuspick.csv', encoding='utf-8', dtype={'title':str, 'f':int}, header=0)
     titles = df.iloc[:, 0].tolist()
     fields = df.iloc[:, 1].tolist()
     
@@ -172,7 +172,13 @@ def close_major(your_major) :
 def open_activity(start_index=0) :
     
     url = "https://www.campuspick.com/activity"
-    driver = webdriver.Chrome() # 드라이버 시작, 시스템 환경변수에 경로 설정해서 경로 따로 지정 안함
+    
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('headless')
+    chrome_options.add_argument("disable-gpu")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
+
+    driver = webdriver.Chrome(options=chrome_options) # 드라이버 시작
     driver.get(url) # 캠퍼스픽 사이트 가져오기
     driver.implicitly_wait(10) # 웹 페이지가 로딩될 떄까지 최대 10초 대기
     
@@ -218,7 +224,13 @@ def open_activity(start_index=0) :
 def open_contest(start_index=0) :
     
     url = "https://www.campuspick.com/contest"
-    driver = webdriver.Chrome() # 드라이버 시작, 시스템 환경변수에 경로 설정해서 경로 따로 지정 안함
+    
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('headless')
+    chrome_options.add_argument("disable-gpu")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
+
+    driver = webdriver.Chrome(options=chrome_options) # 드라이버 시작
     driver.get(url) # 캠퍼스픽 사이트 가져오기
     driver.implicitly_wait(10) # 웹 페이지가 로딩될 떄까지 최대 10초 대기
     
