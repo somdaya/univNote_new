@@ -7,7 +7,7 @@ import time
 def plus_club(start_index=0) : # 더보기_연합동아리 
     
     url = "https://www.campuspick.com/club" # 캠퍼스픽 ur
-    l
+    
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('headless')
     chrome_options.add_argument("disable-gpu")
