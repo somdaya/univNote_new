@@ -8,26 +8,8 @@ from plus.plus_club import plus_club
 from plus.plus_contest import plus_contest
 
 from review import review
-from search.search_activity import search_activity
-from search.search_club import search_club
-from search.search_contest import search_contest
 
 app = FastAPI()
-
-@app.get("/contest/search/{keyword}")
-def search_contents(keyword: str, idx: int = 0):
-    data = search_contest(keyword=keyword, start_index=idx)
-    return data;
-  
-@app.get("/activity/search/{keyword}")
-def search_activities(keyword: str, idx: int = 0):
-  data = search_activity(keyword=keyword, start_index=idx)
-  return data;
-
-@app.get("/club/search/{keyword}")
-def search_clubs(keyword: str, idx: int = 0):
-    data = search_club(keyword=keyword, start_index=idx)
-    return data;
 
 @app.get("/contest")
 def show_all_contest(idx: int = 0):
