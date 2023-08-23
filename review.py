@@ -38,7 +38,6 @@ def review(keyword='') : # 후기글 크롤링
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('headless')
     chrome_options.add_argument("disable-gpu")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
 
     driver = webdriver.Chrome(options=chrome_options) # 드라이버 시작
     driver.get(url)
