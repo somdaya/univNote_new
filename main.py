@@ -41,7 +41,7 @@ def show_best_club():
     data = best_club()
     return data;
 
-@app.get("/reviews/{keyword}")
+@app.get("/reviews")
 def show_reviews(keyword: str):
     data = review(keyword)
     return data;
