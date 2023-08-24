@@ -29,7 +29,7 @@ def review(keyword='') : # 후기글 크롤링
     clean_txt_1 = remove_special_characters(keyword)
     clean_txt_2 = remove_words_numbers(clean_txt_1).strip()
     
-    review_keyword = f'"{clean_txt_2} 후기"'
+    review_keyword = f'{clean_txt_2} 후기'
 
     baseUrl = 'https://www.google.com/search?q=' # 구글 링크
     plusUrl = quote_plus(review_keyword) # 검색어 링크
